@@ -1,3 +1,7 @@
 # Ignore macOS specific files
 ._DS_Store
 .DS_Store
+
+
+# Ignore test files
+test*
