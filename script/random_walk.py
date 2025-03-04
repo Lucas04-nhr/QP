@@ -45,6 +45,21 @@ def plot_walk(x_values, y_values):
   plt.grid(True)
   plt.show()
 
+def calculate_expected_distance(steps):
+  distance = 0
+  for _ in range(steps):
+    step = random.choice(['up', 'down', 'left', 'right'])
+    if step == 'up':
+      distance += 1
+    elif step == 'down':
+      distance += 1
+    elif step == 'left':
+      distance += 1
+    elif step == 'right':
+      distance += 1
+
+  return distance
+
 if __name__ == "__main__":
   steps = 1000
   x_values, y_values = random_walk_2d(steps)
