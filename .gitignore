@@ -6,5 +6,8 @@
 *.pyc
 __pycache__/*
 
+# Jupyter notebook specific
+.ipynb_checkpoints
+
 # Ignore test files
 test*
