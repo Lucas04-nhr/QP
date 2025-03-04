@@ -35,10 +35,12 @@ dependencies:
   - packaging=24.2=py39hca03da5_0
   - pillow=11.1.0=py39h84e58ab_0
   - pip=25.0=py39hca03da5_0
+  - pybind11-abi=4=hd3eb1b0_1
   - pyparsing=3.2.0=py39hca03da5_0
   - python=3.9.21=hb885b13_1
   - python-dateutil=2.9.0post0=py39hca03da5_2
   - readline=8.2=h1a28f6b_0
+  - scipy=1.13.1=py39hd336fd7_1
   - setuptools=72.1.0=py39hca03da5_0
   - six=1.16.0=pyhd3eb1b0_1
   - sqlite=3.45.3=h80987f9_0
