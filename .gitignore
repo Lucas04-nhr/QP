@@ -2,6 +2,9 @@
 ._DS_Store
 .DS_Store
 
+# Python specific
+*.pyc
+__pycache__
 
 # Ignore test files
 test*
