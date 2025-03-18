@@ -13,6 +13,9 @@ def simulate_lotka_volterra(alpha, beta, delta, gamma, prey0, predator0, t):
     sol = odeint(lotka_volterra, X0, t, args=(alpha, beta, delta, gamma))
     return sol
 
+def calculate_balance(alpha, beta, delta, gamma):
+    return alpha / beta, delta / gamma
+
 def plot_lotka_volterra(t, sol, file_loc='lotka_volterra.png'):
     plt.figure(figsize=(10, 5))
     plt.plot(t, sol[:, 0], label='Prey')
@@ -34,5 +37,7 @@ if __name__ == "__main__":
     prey0 = 40  # Initial prey population
     predator0 = 9  # Initial predator population
     t = np.linspace(0, 200, 1000)  # Time points
-    sol = simulate_lotka_volterra(alpha, beta, delta, gamma, prey0, predator0, t)
-    plot_lotka_volterra(t, sol)
+    sol0 = simulate_lotka_volterra(alpha, beta, delta, gamma, prey0, predator0, t)
+    balance = calculate_balance(alpha, beta, delta, gamma)
+    print(f"Prey balance: {balance[0]}, Predator balance: {balance[1]}")
+    plot_lotka_volterra(t, sol0)
