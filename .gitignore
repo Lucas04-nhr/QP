@@ -15,3 +15,4 @@ test*
 # IDE specific
 .idea
 .vscode
+doc/calcium_oscillation.ipynb
