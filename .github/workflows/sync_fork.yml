@@ -1,0 +1,53 @@
+name: Sync Fork and Comment on PR
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+jobs:
+  check-and-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
+      - name: Checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          repository: ${{ github.repository }}
+
+      - name: Check if PR branch is behind main
+        id: check_behind
+        run: |
+          git fetch origin main
+          if git merge-base --is-ancestor origin/main HEAD; then
+            echo "is_behind=false" >> $GITHUB_ENV
+          else
+            echo "is_behind=true" >> $GITHUB_ENV
+          fi
+
+      - name: Sync PR branch with main
+        if: env.is_behind == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git merge origin/main --no-edit
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+
+      - name: Leave a comment on the PR
+        if: env.is_behind == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: "Your branch was out of sync with the main branch. It has been automatically updated."
+            })
+              
