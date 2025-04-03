@@ -26,8 +26,9 @@ jobs:
         run: |
           git fetch origin main
           if git merge-base --is-ancestor origin/main HEAD; then
-            echo "is_behind=false" >> $GITHUB_ENV
+            echo "You are up to date with main."
           else
-            echo "is_behind=true" >> $GITHUB_ENV
+            echo "Your branch is behind main."  # Added message for clarity
+            echo "Please sync your branch with main."  # Added message for user guidance
             exit 1
           fi
